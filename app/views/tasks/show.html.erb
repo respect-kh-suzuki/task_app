@@ -1,0 +1,41 @@
+<div class="container">
+  <h1><%= @task.id %> <%= @task.title %>の詳細</h1>
+  <%= link_to '新規登録', new_task_path %>
+  <%= link_to '課題一覧', tasks_path %>
+  <hr>
+  <table class="table">
+    <thead>
+      <th>項目名</th>
+      <th>値</th>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr>
+        <th class="table-primary">タスク名</th>
+        <td><%= @task.title %></td>
+      </tr>
+      <tr>
+        <th class="table-primary">内容</th>
+        <td><%= @task.content %></td>
+      </tr>
+      <tr>
+        <th class="table-primary">状態</th>
+        <td><%= @task.status %></td>
+      </tr>
+      <tr>
+        <th class="table-primary">カテゴリー</th>
+        <td><%= @task.category.label %></td>
+      </tr>
+      <tr>
+        <th class="table-primary">開始日</th>
+        <td><%= @task.start_date %></td>
+      </tr>
+      <tr>
+        <th class="table-primary">期限日</th>
+        <td><%= @task.end_date %></td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <%= link_to 'このタスクを修正する', edit_task_path(@task), class: 'btn btn-success' %>
+  <%= link_to "このタスクを削除する", task_path(@task), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+</div>

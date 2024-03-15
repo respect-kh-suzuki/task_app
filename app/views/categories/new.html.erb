@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>カテゴリー登録</h1>
+  <%= link_to 'カテゴリー一覧', categories_path %>
+  <hr>
+  <%= form_with model: @category, url: categories_path, local: true do |f| %>
+  <table class="table">
+    <tbody>
+      <tr class="border-top">
+        <th class="table-primary">カテゴリー名</th>
+        <td>
+          <%= f.text_field :label %>
+          <%= render_errors f.object, :label %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <%= f.submit :"課題登録", class: 'btn btn-primary' %>
+  </div>
+  <% end %>
+</div>

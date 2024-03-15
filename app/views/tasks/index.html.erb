@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>タスク一覧</h1>
+
+  <%= link_to '課題登録', new_task_path %>
+  <%= link_to '課題一覧', tasks_path %>
+  <br>
+  <%= link_to 'カテゴリー一覧', categories_path %>
+  <hr>
+  <p>
+    <strong>状態：</strong>
+    <%= link_to 'すべて', tasks_path %>
+    <% Task.statuses.keys.each do |name| %>
+      <%= link_to name, tasks_path(status: name) %>
+    <% end %>
+  </p>
+  <div>
+    <strong>カテゴリー：</strong>
+    <%= form_with model: @task, url: tasks_path, local: true, class: "d-inline-block" do |f| %>
+      <%= f.collection_select :category_id, Category.all, :id, :label, options = { include_blank: true }, onchange: "updateTasks(this.value)" %>
+    <% end %>
+  </div>
+  <hr>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-primary">
+        <th class="position-relative">
+          <%= link_to "Id", tasks_path(sort_column: 'id', sort_direction: @sort_column == 'id' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+          <%= sort_icon('id') %>
+        </th>
+        <th class="position-relative">
+          <%= link_to "タスク名", tasks_path(sort_column: 'title', sort_direction: @sort_column == 'title' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+          <%= sort_icon('title') %>
+        </th>
+        <th class="position-relative">
+          <%= link_to "状態", tasks_path(sort_column: 'status', sort_direction: @sort_column == 'status' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+          <%= sort_icon('status') %>
+        </th>
+        <th class="position-relative">
+          <%= link_to "カテゴリー", tasks_path(sort_column: 'category_id', sort_direction: @sort_column == 'category_id' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+          <%= sort_icon('category_id') %>
+        </th>
+        <th class="position-relative">
+          <%= link_to "開始日", tasks_path(sort_column: 'start_date', sort_direction: @sort_column == 'start_date' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+          <%= sort_icon('start_date') %>
+        </th>
+        <th class="position-relative">
+          <%= link_to "期限日", tasks_path(sort_column: 'end_date', sort_direction: @sort_column == 'end_date' && @sort_direction == 'desc' ? 'asc' : 'desc') %>
+          <%= sort_icon('end_date') %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.id %></td>
+          <td><%= link_to task.title, task_path(task) %></td>
+          <td><%= task.status %></td>
+          <td><%= task.category.label %></td>
+          <td><%= task.start_date %></td>
+          <td><%= task.end_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

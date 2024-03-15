@@ -1,0 +1,23 @@
+@import "bootstrap";
+@import "bootstrap_custom";
+
+.fas {
+    margin: auto;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    &.fa-sort {
+        &-up {
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid black;
+        }
+        &-down {
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid black;
+        }
+    }
+}

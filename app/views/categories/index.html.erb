@@ -1,0 +1,26 @@
+<div class="container">
+  <h1>カテゴリー一覧</h1>
+  <%= link_to '課題一覧', tasks_path %>
+  <br>
+  <%= link_to 'カテゴリー登録', new_category_path %>
+  <hr>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>カテゴリー</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.id %></td>
+          <td><%= link_to category.label, edit_category_path(category) %></td>
+          <td><%= link_to "削除", category_path(category), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
