@@ -6,7 +6,9 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = params[:status].nil? ? Task.all.order("#{sort_column}") : Task.where(status: params[:status]).order("#{sort_column}")
+    @tasks = params[:status].nil? ? Task.all : Task.where(status: params[:status])
+    @tasks = @tasks.where(category_id: params[:category_id]) if params[:category_id].present?
+    @tasks = @tasks.order(sort_column)
 
     @sort_column = params[:sort_column]
     @sort_direction = params[:sort_direction]
